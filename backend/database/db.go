@@ -37,13 +37,13 @@ func InitDB() {
 }
 
 // SeedDefaultWorkspaces seeds the 3 default workspaces for a new user:
-// "งาน" (briefcase, #534AB7), "ส่วนตัว" (home, #1D9E75), "สุขภาพ" (heart, #D85A30)
+// "งาน" (briefcase, #171717), "ส่วนตัว" (home, #1D9E75), "สุขภาพ" (heart, #D85A30)
 func SeedDefaultWorkspaces(userID uint) error {
 	defaults := []models.Workspace{
 		{
 			Name:      "งาน",
 			Slug:      fmt.Sprintf("work-%d", userID),
-			Color:     "#534AB7",
+			Color:     "#171717",
 			Icon:      "briefcase",
 			UserID:    userID,
 			SortOrder: 1,

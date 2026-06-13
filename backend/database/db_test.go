@@ -47,7 +47,7 @@ func TestInitDBAndSeeding(t *testing.T) {
 
 	expectedNames := []string{"งาน", "ส่วนตัว", "สุขภาพ"}
 	expectedIcons := []string{"briefcase", "home", "heart"}
-	expectedColors := []string{"#534AB7", "#1D9E75", "#D85A30"}
+	expectedColors := []string{"#171717", "#1D9E75", "#D85A30"}
 
 	for i, ws := range workspaces {
 		if ws.Name != expectedNames[i] {

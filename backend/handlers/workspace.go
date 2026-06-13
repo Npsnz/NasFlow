@@ -72,7 +72,7 @@ func CreateWorkspace(c *gin.Context) {
 	}
 
 	if ws.Color == "" {
-		ws.Color = "#534AB7"
+		ws.Color = "#171717"
 	}
 	if ws.Icon == "" {
 		ws.Icon = "briefcase"
