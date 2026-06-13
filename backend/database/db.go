@@ -3,9 +3,11 @@ package database
 import (
 	"fmt"
 	"log"
+	"os"
 	"backend/config"
 	"backend/models"
 
+	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -14,13 +16,23 @@ var DB *gorm.DB
 
 func InitDB() {
 	var err error
-	DB, err = gorm.Open(sqlite.Open(config.AppConfig.DBPath), &gorm.Config{})
-	if err != nil {
-		log.Fatalf("Failed to connect database: %v", err)
-	}
 
-	// Enable foreign keys for SQLite
-	DB.Exec("PRAGMA foreign_keys = ON;")
+	// Use PostgreSQL if DATABASE_URL is set, otherwise fallback to SQLite for local dev
+	if dbURL := os.Getenv("DATABASE_URL"); dbURL != "" {
+		log.Println("Connecting to PostgreSQL...")
+		DB, err = gorm.Open(postgres.Open(dbURL), &gorm.Config{})
+		if err != nil {
+			log.Fatalf("Failed to connect to PostgreSQL: %v", err)
+		}
+	} else {
+		log.Println("Connecting to SQLite (local development)...")
+		DB, err = gorm.Open(sqlite.Open(config.AppConfig.DBPath), &gorm.Config{})
+		if err != nil {
+			log.Fatalf("Failed to connect to SQLite: %v", err)
+		}
+		// Enable foreign keys for SQLite
+		DB.Exec("PRAGMA foreign_keys = ON;")
+	}
 
 	// Auto migrate models
 	err = DB.AutoMigrate(

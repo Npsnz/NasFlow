@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { useAuthStore } from '@/stores/auth'
 
+const apiUrl = import.meta.env.VITE_API_URL || '/api'
+
 const client = axios.create({
-  baseURL: '/api',
+  baseURL: apiUrl,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json'
@@ -64,7 +66,7 @@ client.interceptors.response.use(
       isRefreshing = true
 
       try {
-        const refreshResponse = await axios.post('/api/auth/refresh', {}, { withCredentials: true })
+        const refreshResponse = await axios.post(`${apiUrl}/auth/refresh`, {}, { withCredentials: true })
         const newToken = refreshResponse.data.data?.access_token
 
         // Retry queue with new token

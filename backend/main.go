@@ -37,8 +37,11 @@ func main() {
 	// 7. Global Middleware
 	r.Use(middleware.CORSMiddleware())
 
-	// Health Check
+	// Health Check endpoints
 	r.GET("/health", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"status": "ok"})
+	})
+	r.GET("/api/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"status": "ok"})
 	})
 
