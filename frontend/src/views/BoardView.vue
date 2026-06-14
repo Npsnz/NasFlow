@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted } from 'vue'
 import { useTasksStore } from '@/stores/tasks'
-import { useWorkspaceStore } from '@/stores/workspace'
 import { useUIStore } from '@/stores/ui'
 import KanbanBoard from '@/components/board/KanbanBoard.vue'
 import TaskDrawer from '@/components/task/TaskDrawer.vue'
@@ -10,19 +9,13 @@ import {
   AlertOctagon,
   CheckCircle,
   Clock,
-  Sparkles,
-  Activity,
-  History,
-  Info
+  Activity
 } from 'lucide-vue-next'
 
 const tasksStore = useTasksStore()
-const workspaceStore = useWorkspaceStore()
 const uiStore = useUIStore()
 
 const stats = computed(() => tasksStore.stats)
-const activities = computed(() => tasksStore.activities)
-const currentWorkspace = computed(() => workspaceStore.currentWorkspace)
 
 let statsPollInterval: any = null
 
@@ -47,26 +40,6 @@ onUnmounted(() => {
   if (statsPollInterval) clearInterval(statsPollInterval)
 })
 
-const formatRelativeThaiTime = (dateStr: string) => {
-  const date = new Date(dateStr)
-  const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000)
-  if (seconds < 60) return 'เมื่อครู่'
-  const minutes = Math.floor(seconds / 60)
-  if (minutes < 60) return `${minutes} นาทีที่แล้ว`
-  const hours = Math.floor(minutes / 60)
-  if (hours < 24) return `${hours} ชั่วโมงที่แล้ว`
-  const days = Math.floor(hours / 24)
-  if (days < 30) return `${days} วันที่แล้ว`
-  return date.toLocaleDateString('th-TH', { day: 'numeric', month: 'short' })
-}
-
-const parseActivity = (activityStr: string) => {
-  const parts = activityStr.split('|')
-  return {
-    text: parts[0],
-    time: parts[1] ? formatRelativeThaiTime(parts[1]) : ''
-  }
-}
 </script>
 
 <template>

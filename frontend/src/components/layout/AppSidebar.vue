@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
 import { useWorkspaceStore } from '@/stores/workspace'
 import { useUIStore } from '@/stores/ui'
 import {
@@ -9,24 +8,19 @@ import {
   Calendar,
   ListTodo,
   Settings,
-  Plus,
-  LogOut,
   FolderDot,
   Briefcase,
   Home,
   Heart,
-  User,
   Edit2,
   X,
   Palette
 } from 'lucide-vue-next'
 
 const router = useRouter()
-const authStore = useAuthStore()
 const workspaceStore = useWorkspaceStore()
 const uiStore = useUIStore()
 
-const user = computed(() => authStore.user)
 const workspaces = computed(() => workspaceStore.workspaces)
 const currentWorkspace = computed(() => workspaceStore.currentWorkspace)
 const isSidebarOpen = computed(() => uiStore.sidebarOpen)
@@ -44,19 +38,6 @@ const icons = [
   { name: 'ListTodo', component: ListTodo },
   { name: 'Settings', component: Settings }
 ]
-
-const mapIcon = (iconName: string) => {
-  switch (iconName) {
-    case 'briefcase':
-      return Briefcase
-    case 'home':
-      return Home
-    case 'heart':
-      return Heart
-    default:
-      return FolderDot
-  }
-}
 
 const selectView = (view: 'board' | 'calendar' | 'tasks' | 'settings') => {
   uiStore.setActiveView(view)
@@ -79,12 +60,6 @@ const selectWorkspace = (ws: any) => {
   selectView('board')
 }
 
-const handleLogout = async () => {
-  if (confirm('คุณต้องการออกจากระบบหรือไม่?')) {
-    await authStore.logout()
-    router.push('/login')
-  }
-}
 
 const colors = [
   '#9333ea', '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#6366f1', '#14b8a6'

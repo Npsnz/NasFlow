@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useTasksStore, Task } from '@/stores/tasks'
+import { useTasksStore } from '@/stores/tasks'
+import type { Task } from '@/stores/tasks'
 import { useWorkspaceStore } from '@/stores/workspace'
-import { useUIStore } from '@/stores/ui'
-import { ChevronLeft, ChevronRight, Plus, HelpCircle, User, CalendarDays } from 'lucide-vue-next'
+import { ChevronLeft, ChevronRight, Plus, CalendarDays } from 'lucide-vue-next'
 
 const tasksStore = useTasksStore()
 const workspaceStore = useWorkspaceStore()
-const uiStore = useUIStore()
 
 const currentWorkspace = computed(() => workspaceStore.currentWorkspace)
 

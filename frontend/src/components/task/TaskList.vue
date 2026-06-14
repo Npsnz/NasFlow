@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
-import { useTasksStore, Task, Tag } from '@/stores/tasks'
+import { useTasksStore } from '@/stores/tasks'
+import type { Task } from '@/stores/tasks'
 import { useWorkspaceStore } from '@/stores/workspace'
 import { useUIStore } from '@/stores/ui'
 import {
   FileDown,
   Trash2,
-  Tag as TagIcon,
-  CheckCircle,
-  HelpCircle,
-  ChevronDown,
-  ChevronRight,
-  Sparkles,
-  ArrowUpDown,
   FolderClosed,
   Calendar
 } from 'lucide-vue-next'
@@ -581,15 +575,8 @@ const openTaskDrawer = (id: number) => {
         v-if="sortedTasks.length === 0"
         class="text-center py-16 bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-xl select-none"
       >
-        <ClipboardCopy class="w-12 h-12 text-slate-300 mx-auto mb-3" />
         <h4 class="text-sm font-bold text-slate-800 dark:text-slate-200">ไม่พบงานที่ต้องการ</h4>
         <p class="text-xs text-slate-400 mt-1">ลองล้างตัวกรองที่เลือกไว้ที่แถบด้านบนสุด</p>
-        <button
-          @click="clearAllFilters"
-          class="mt-4 px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-semibold min-h-[44px]"
-        >
-          ล้างตัวกรองทั้งหมด
-        </button>
       </div>
     </div>
 

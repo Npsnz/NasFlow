@@ -1,24 +1,15 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useWorkspaceStore } from '@/stores/workspace'
-import { useTasksStore, Task, Tag, Comment } from '@/stores/tasks'
+import { useTasksStore } from '@/stores/tasks'
+import type { Task, Tag } from '@/stores/tasks'
 import { useUIStore } from '@/stores/ui'
 import {
   X,
-  Calendar,
-  Tag as TagIcon,
-  AlertTriangle,
-  RefreshCw,
-  FolderClosed,
   Plus,
   Trash2,
-  CheckSquare,
   MessageSquare,
-  MessageCircleOff,
   Clock,
-  Sparkles,
-  ChevronRight,
-  User,
   Eye,
   FileText
 } from 'lucide-vue-next'

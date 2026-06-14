@@ -3,7 +3,7 @@ import { ref, computed, watch, nextTick } from 'vue'
 import { useWorkspaceStore } from '@/stores/workspace'
 import { useTasksStore } from '@/stores/tasks'
 import { useUIStore } from '@/stores/ui'
-import { Calendar, Tag, AlertTriangle, RefreshCw, FolderClosed, X } from 'lucide-vue-next'
+import { Calendar, AlertTriangle, RefreshCw, FolderClosed, X } from 'lucide-vue-next'
 
 const props = defineProps<{
   show: boolean
@@ -34,7 +34,7 @@ const parsed = computed(() => {
   const text = rawText.value
   let cleanedTitle = text
   let parsedWorkspaceId = workspaceStore.currentWorkspace?.id || (workspaceStore.workspaces[0]?.id || 0)
-  let parsedPriority = 'medium'
+  let parsedPriority: 'low' | 'medium' | 'high' | 'urgent' = 'medium'
   let parsedDueDate: Date | null = null
   let parsedIsRecurring = false
   let parsedRecurRule = ''

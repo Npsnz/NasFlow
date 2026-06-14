@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useTasksStore, Task } from '@/stores/tasks'
+import { useTasksStore } from '@/stores/tasks'
+import type { Task } from '@/stores/tasks'
 import { useWorkspaceStore } from '@/stores/workspace'
 import { useUIStore } from '@/stores/ui'
 import KanbanColumn from './KanbanColumn.vue'

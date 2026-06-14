@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
-import { useWorkspaceStore, Workspace } from '@/stores/workspace'
+import { useWorkspaceStore } from '@/stores/workspace'
+import type { Workspace } from '@/stores/workspace'
 import { useTasksStore } from '@/stores/tasks'
 import { useUIStore } from '@/stores/ui'
 import {
@@ -16,11 +17,7 @@ import {
   Moon,
   Sun,
   Laptop,
-  Check,
-  Briefcase,
-  Home,
-  Heart,
-  FileDown
+  Check
 } from 'lucide-vue-next'
 
 const authStore = useAuthStore()
@@ -60,7 +57,6 @@ const newTagName = ref('')
 const newTagColor = ref('#171717')
 
 const presetColors = ['#171717', '#1D9E75', '#D85A30', '#333333', '#ef4444', '#3b82f6', '#10b981', '#f59e0b']
-const presetIcons = ['briefcase', 'home', 'heart', 'folder', 'star', 'user', 'activity', 'clock']
 
 onMounted(() => {
   uiStore.setActiveView('settings')

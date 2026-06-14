@@ -4,7 +4,7 @@ import type { Task } from '@/stores/tasks'
 import { useTasksStore } from '@/stores/tasks'
 import { useWorkspaceStore } from '@/stores/workspace'
 import { useUIStore } from '@/stores/ui'
-import { Plus, ListTodo, ClipboardCopy, CheckCircle2 } from 'lucide-vue-next'
+import { Plus } from 'lucide-vue-next'
 
 const props = defineProps<{
   status: 'todo' | 'doing' | 'done'

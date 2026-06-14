@@ -5,7 +5,7 @@ import { useWorkspaceStore } from '@/stores/workspace'
 import { useTasksStore } from '@/stores/tasks'
 import { useUIStore } from '@/stores/ui'
 import { useAuthStore } from '@/stores/auth'
-import { Menu, Search, X, Filter, Sparkles, LogOut, Settings, User, HelpCircle } from 'lucide-vue-next'
+import { Menu, Search, X, Filter, Sparkles, Settings } from 'lucide-vue-next'
 
 const router = useRouter()
 const workspaceStore = useWorkspaceStore()
