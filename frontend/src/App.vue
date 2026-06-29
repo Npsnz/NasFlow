@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import ToastContainer from '@/components/ToastContainer.vue'
 
 const authStore = useAuthStore()
 const router = useRouter()
@@ -27,7 +28,8 @@ const handleAuthLogout = async () => {
 </script>
 
 <template>
-  <div class="h-screen w-screen overflow-hidden bg-bg-light dark:bg-bg-dark font-sans select-none">
+  <div class="min-h-screen w-screen bg-bg-light dark:bg-bg-dark font-sans select-none">
+    <ToastContainer />
     <router-view />
   </div>
 </template>

@@ -7,49 +7,36 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/LoginView.vue'),
+      component: () => import('@/views/LoginViewZen.vue'),
       meta: { guestOnly: true }
     },
     {
-      path: '/',
-      component: () => import('@/components/layout/AppLayout.vue'),
-      meta: { requiresAuth: true },
-      children: [
-        {
-          path: '',
-          redirect: '/board'
-        },
-        {
-          path: 'board',
-          name: 'board',
-          component: () => import('@/views/BoardView.vue')
-        },
-        {
-          path: 'calendar',
-          name: 'calendar',
-          component: () => import('@/views/CalendarView.vue')
-        },
-        {
-          path: 'tasks',
-          name: 'tasks',
-          component: () => import('@/views/AllTasksView.vue')
-        },
-        {
-          path: 'settings',
-          name: 'settings',
-          component: () => import('@/views/SettingsView.vue')
-        }
-      ]
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('@/views/DashboardZen.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/tasks',
+      name: 'tasks',
+      component: () => import('@/views/TasksViewZen.vue'),
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: () => import('@/views/SettingsViewZen.vue'),
+      meta: { requiresAuth: true }
     },
     {
       path: '/:pathMatch(.*)*',
-      redirect: '/board'
+      redirect: '/dashboard'
     }
   ]
 })
 
 // Route navigation guards
-router.beforeEach(async (to, _from, next) => {
+router.beforeEach(async (to, _from) => {
   const authStore = useAuthStore()
 
   // Verify auth state from backend if token exists but user details are missing
@@ -60,13 +47,11 @@ router.beforeEach(async (to, _from, next) => {
   const isAuthenticated = authStore.isAuthenticated
 
   if (to.meta.requiresAuth && !isAuthenticated) {
-    next({ name: 'login' })
+    return { name: 'login' }
   } else if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
-    next({ name: 'login' })
+    return { name: 'login' }
   } else if (to.meta.guestOnly && isAuthenticated) {
-    next({ name: 'board' })
-  } else {
-    next()
+    return { name: 'dashboard' }
   }
 })
 
