@@ -229,6 +229,7 @@ const selectedTask = ref<any>(null)
 // Swipe handling for mobile
 const touchStart = ref({ x: 0, y: 0 })
 const boardScroll = ref({ element: null as HTMLElement | null, scrollLeft: 0 })
+const lastSwipeTime = ref(0) // Prevent multiple swipes in quick succession
 
 const newTask = ref({
   title: '',
@@ -443,6 +444,10 @@ const handleTouchStart = (e: TouchEvent) => {
 const handleTouchEnd = (e: TouchEvent) => {
   if (!boardScroll.value.element) return
 
+  const now = Date.now()
+  // Prevent multiple swipes within 600ms to avoid double-column jumps
+  if (now - lastSwipeTime.value < 600) return
+
   const touchEnd = {
     x: e.changedTouches[0].clientX,
     y: e.changedTouches[0].clientY,
@@ -452,15 +457,17 @@ const handleTouchEnd = (e: TouchEvent) => {
   const deltaY = Math.abs(touchStart.value.y - touchEnd.y)
 
   // Only swipe if horizontal movement is greater than vertical
-  if (Math.abs(deltaX) > 50 && deltaY < 50) {
+  // Any swipe moves exactly 1 column
+  if (Math.abs(deltaX) > 30 && deltaY < 50) {
+    lastSwipeTime.value = now
     const scrollAmount = 320 // Approximate column width + gap
     let newScrollLeft = boardScroll.value.scrollLeft
 
     if (deltaX > 0) {
-      // Swipe left - scroll right (next columns)
+      // Swipe left - scroll right to next column only
       newScrollLeft += scrollAmount
     } else {
-      // Swipe right - scroll left (previous columns)
+      // Swipe right - scroll left to previous column only
       newScrollLeft -= scrollAmount
     }
 
