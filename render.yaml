@@ -1,20 +1,19 @@
-services:
+﻿services:
   - type: web
-    name: nasflow-api
-    runtime: go
-    buildCommand: cd backend && go build -o server .
-    startCommand: ./backend/server
+    name: nasflow-backend
+    env: go
+    plan: free
+    buildCommand: cd backend && go build -o main .
+    startCommand: ./main
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: nasflow-db
-          property: connectionString
-      - key: JWT_SECRET
-        generateValue: true
-      - key: PORT
-        value: 8080
+        sync: false
+    routes:
+      - type: http
+        path: /
+        port: 8080
 
-databases:
-  - name: nasflow-db
-    databaseName: nasflow
-    user: nasflow
+  - type: pserv
+    name: nasflow-postgres
+    ipAllowList: []
+    plan: free
