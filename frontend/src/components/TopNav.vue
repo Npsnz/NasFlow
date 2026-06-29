@@ -385,9 +385,10 @@ onMounted(() => {
 
 .mobile-menu {
   position: absolute;
-  top: 80px;
+  top: 88px;
   right: 0;
   left: 0;
+  margin-top: 0.5rem;
   background: white;
   border-bottom: 1px solid #E8DDD2;
   display: flex;
